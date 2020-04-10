@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
+import NotFoundPage from '../views/NotFoundPage.vue'
 
 Vue.use(VueRouter)
 
@@ -40,6 +41,14 @@ const routes: Array<RouteConfig> = [
           url: '/#/register'
         }
       ]
+    }
+  },
+  {
+    path: '*',
+    name: 'NotFoundPage',
+    component: NotFoundPage,
+    meta: {
+      showHeader: true
     }
   }
 ]
