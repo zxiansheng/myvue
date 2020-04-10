@@ -22,6 +22,4 @@
     </div>
   </div>
 </template>
-<style>
-  @import '../assets/css/style.css';
-</style>
+<style lang="less" src="../assets/css/style.less"></style>

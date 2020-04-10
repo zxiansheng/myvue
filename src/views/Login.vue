@@ -21,7 +21,7 @@
     </div>
   </div>
 </template>
-<style lang="less">
+<style scoped lang="less">
 table {
   display:inline-block
 }
