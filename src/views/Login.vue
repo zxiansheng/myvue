@@ -5,27 +5,40 @@
         <h2 class="animation a1">
           欢迎回来
         </h2>
-        <h4 class="animation a2">
-          使用电邮及密码登入你的帐户
-        </h4>
       </div>
       <div class="form">
         <input
-          type="email"
           class="form-field animation a3"
-          placeholder="邮箱账号"
+          placeholder="登录账号"
+          v-model="account"
         >
         <input
           type="password"
           class="form-field animation a4"
           placeholder="密码"
+          v-model="password"
         >
         <p class="animation a5">
-          <a href="#">忘记密码</a>
+          <a href="/#/register">注册账号</a> |
+          <a href="/#/forget">忘记密码</a>
         </p>
-        <button class="animation a6">
+        <button
+          class="animation a6"
+          @click="checkForm"
+        >
           登录
         </button>
+        <p v-if="errors.length">
+          <b>Please correct the following error(s):</b>
+          <ul>
+            <li
+              v-for="(error,key) in errors"
+              :key="key"
+            >
+              {{ error }}
+            </li>
+          </ul>
+        </p>
       </div>
     </div>
     <div class="right" />
@@ -51,3 +64,19 @@
   </div> -->
 </template>
 <style lang="less" scoped src="../assets/css/login.less"></style>
+<script lang="ts" scoped>
+export default {
+  data: () => {
+    return {
+      account: '',
+      password: '',
+      errors: {}
+    }
+  },
+  methods: {
+    checkForm () {
+      console.log(111)
+    }
+  }
+}
+</script>
