@@ -11,6 +11,7 @@
           class="form-field animation a3"
           placeholder="登录账号"
           v-model="account"
+          name="account"
         >
         <input
           type="password"
@@ -66,7 +67,8 @@
 <style lang="less" scoped src="../assets/css/login.less"></style>
 <script lang="ts" scoped>
 export default {
-  data: () => {
+  name: 'LoginForm',
+  data () {
     return {
       account: '',
       password: '',
