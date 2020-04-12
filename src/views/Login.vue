@@ -66,9 +66,10 @@
 </template>
 <style lang="less" scoped src="../assets/css/login.less"></style>
 <script lang="ts" scoped>
+import Vue from 'vue'
 export default {
   name: 'LoginForm',
-  data () {
+  data (): object {
     return {
       account: '',
       password: '',
@@ -76,7 +77,8 @@ export default {
     }
   },
   methods: {
-    checkForm () {
+    checkForm (): void {
+      Vue.set(this.$data, 'account', '222')
       console.log(111)
     }
   }
