@@ -1,18 +1,25 @@
 <template>
   <div class="container">
     <div class="left">
-      <div class="header">
-        <h2 class="animation a1">
-          欢迎回来
-        </h2>
-      </div>
       <div class="form">
-        <input
-          class="form-field animation a3"
-          placeholder="登录账号"
-          v-model="account"
-          name="account"
+        <div class="header">
+          <h2 class="animation a1">
+            欢迎回来
+          </h2>
+        </div>
+        <validation-provider
+          rules="required|min:6|max:12"
+          v-slot="{ errors }"
         >
+          <input
+            style="width:100%"
+            class="form-field animation a3"
+            placeholder="登录账号"
+            v-model="account"
+            name="account"
+          >
+          <span>{{ errors[0] }}</span>
+        </validation-provider>
         <input
           type="password"
           class="form-field animation a4"
@@ -67,6 +74,30 @@
 <style lang="less" scoped src="../assets/css/login.less"></style>
 <script lang="ts" scoped>
 import Vue from 'vue'
+import { ValidationProvider, extend } from 'vee-validate'
+import { required, min, max } from 'vee-validate/dist/rules'
+extend('required', {
+  ...required,
+  message: '请输入信息'
+})
+extend('min', {
+  message: (value, args) => {
+    return '您输入的长度不能小于' + args.length
+  },
+  validate (value, args) {
+    return value.length >= args.length
+  },
+  params: ['length']
+})
+extend('max', {
+  message: (value, args) => {
+    return '您输入的长度不能大于' + args.length
+  },
+  validate (value, args) {
+    return value.length < args.length
+  },
+  params: ['length']
+})
 export default {
   name: 'LoginForm',
   data (): object {
@@ -75,6 +106,9 @@ export default {
       password: '',
       errors: {}
     }
+  },
+  components: {
+    ValidationProvider
   },
   methods: {
     checkForm (): void {
