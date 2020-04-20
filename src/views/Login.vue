@@ -7,25 +7,50 @@
             欢迎回来
           </h2>
         </div>
-        <validation-provider
-          rules="required|min:6|max:12"
-          v-slot="{ errors }"
+        <ValidationObserver
+          ref="form"
+          v-slot="{ validate }"
         >
-          <input
-            style="width:100%"
-            class="form-field animation a3"
-            placeholder="登录账号"
-            v-model="account"
-            name="account"
+          <validation-provider
+            rules="a-required|min:6|max:12"
+            v-slot="{ errors }"
           >
-          <span>{{ errors[0] }}</span>
-        </validation-provider>
-        <input
-          type="password"
-          class="form-field animation a4"
-          placeholder="密码"
-          v-model="password"
-        >
+            <input
+              style="width:100%"
+              class="form-field animation a3"
+              placeholder="登录账号"
+              v-model="account"
+              name="account"
+            >
+            <span>{{ errors[0] }}</span>
+          </validation-provider>
+          <validation-provider
+            rules="required|min:6|max:12"
+            v-slot="{ errors }"
+          >
+            <input
+              style="width:100%"
+              class="form-field animation a3"
+              placeholder="用户昵称"
+              v-model="nickname"
+              name="nickname"
+            >
+            <span>{{ errors[0] }}</span>
+          </validation-provider>
+          <validation-provider
+            rules="r-pwd|min:8|max:12"
+            v-slot="{ errors }"
+          >
+            <input
+              style="width:100%"
+              type="password"
+              class="form-field animation a4"
+              placeholder="密码"
+              v-model="password"
+            >
+            <span>{{ errors[0] }}</span>
+          </validation-provider>
+        </ValidationObserver>
         <p class="animation a5">
           <a href="/#/register">注册账号</a> |
           <a href="/#/forget">忘记密码</a>
@@ -36,17 +61,6 @@
         >
           登录
         </button>
-        <p v-if="errors.length">
-          <b>Please correct the following error(s):</b>
-          <ul>
-            <li
-              v-for="(error,key) in errors"
-              :key="key"
-            >
-              {{ error }}
-            </li>
-          </ul>
-        </p>
       </div>
     </div>
     <div class="right" />
@@ -73,12 +87,16 @@
 </template>
 <style lang="less" scoped src="../assets/css/login.less"></style>
 <script lang="ts" scoped>
-import Vue from 'vue'
-import { ValidationProvider, extend } from 'vee-validate'
+import { ValidationProvider, extend, ValidationObserver } from 'vee-validate'
 import { required, min, max } from 'vee-validate/dist/rules'
-extend('required', {
+extend('a-required', {
   ...required,
-  message: '请输入信息'
+  message: '账号不能为空'
+})
+extend('required', required)
+extend('r-pwd', {
+  ...required,
+  message: '密码不能为空'
 })
 extend('min', {
   message: (value, args) => {
@@ -104,15 +122,22 @@ export default {
     return {
       account: '',
       password: '',
-      errors: {}
+      nickname: ''
     }
   },
   components: {
-    ValidationProvider
+    ValidationProvider,
+    ValidationObserver
   },
   methods: {
     checkForm (): void {
-      Vue.set(this.$data, 'account', '222')
+      this.$refs.form.validate().then(res => {
+        if (res) {
+          console.log('aaaaaaaaaaa')
+        } else {
+          console.log('bbbbbbbbbb', res)
+        }
+      })
       console.log(111)
     }
   }
