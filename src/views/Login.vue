@@ -9,7 +9,6 @@
         </div>
         <ValidationObserver
           ref="form"
-          v-slot="{ validate }"
         >
           <validation-provider
             rules="a-required|min:6|max:12"
@@ -89,6 +88,7 @@
 <script lang="ts" scoped>
 import { ValidationProvider, extend, ValidationObserver } from 'vee-validate'
 import { required, min, max } from 'vee-validate/dist/rules'
+
 extend('a-required', {
   ...required,
   message: '账号不能为空'
