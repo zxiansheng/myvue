@@ -21,20 +21,7 @@
               v-model="account"
               name="account"
             >
-            <span>{{ errors[0] }}</span>
-          </validation-provider>
-          <validation-provider
-            rules="required|min:6|max:12"
-            v-slot="{ errors }"
-          >
-            <input
-              style="width:100%"
-              class="form-field animation a3"
-              placeholder="用户昵称"
-              v-model="nickname"
-              name="nickname"
-            >
-            <span>{{ errors[0] }}</span>
+            <span style="color:red;">{{ errors[0] }}</span>
           </validation-provider>
           <validation-provider
             rules="r-pwd|min:8|max:12"
@@ -47,7 +34,7 @@
               placeholder="密码"
               v-model="password"
             >
-            <span>{{ errors[0] }}</span>
+            <span style="color:red;">{{ errors[0] }}</span>
           </validation-provider>
         </ValidationObserver>
         <p class="animation a5">
@@ -93,7 +80,6 @@ extend('a-required', {
   ...required,
   message: '账号不能为空'
 })
-extend('required', required)
 extend('r-pwd', {
   ...required,
   message: '密码不能为空'
